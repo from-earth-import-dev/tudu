@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: taskapp
+      POSTGRES_PASSWORD: taskapp
+      POSTGRES_DB: taskapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  task-service:
+    build:
+      context: ./services/task-service
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_HOST=postgres
+      - DB_USER=taskapp
+      - DB_PASSWORD=taskapp
+      - DB_NAME=taskapp
+      - AUTH_SERVICE_URL=http://auth-service:5000
+    depends_on:
+      - postgres
+
+  auth-service:
+    build:
+      context: ./services/auth-service
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DB_HOST=postgres
+      - DB_USER=taskapp
+      - DB_PASSWORD=taskapp
+      - DB_NAME=taskapp
+      - SECRET_KEY=your-secret-key-here
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data: 
