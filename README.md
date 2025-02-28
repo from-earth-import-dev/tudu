@@ -11,14 +11,15 @@ A full-stack task management application built with:
 
 Tudu is a task management application designed to demonstrate a microservices architecture using different programming languages. The project serves as a learning platform for Go development while strengthening Python full-stack skills.
 
-## Project Structure 
+## Project Structure
+```
 tudu/
 ├── services/
 │ ├── task-service/ # Go API service for task management
 │ └── auth-service/ # Python Flask service for authentication
 ├── database/ # Database schemas and migrations
 └── docker-compose.yml # Docker configuration for local development
-
+```
 ## Technology Stack
 
 - **Task Service**: Go - handles task CRUD operations
@@ -58,11 +59,3 @@ tudu/
 - Develop authentication flows in the Python service
 - Create React frontend with user authentication
 - Add testing and CI/CD pipeline
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
